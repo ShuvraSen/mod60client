@@ -1,9 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../provider/AuthProvider';
 
 const Register = () => {
+const [error,setError]=useState('')
+const [success,setSuccess]=useState('')
+
   const {createUser}=useContext(AuthContext)
 
 const handleRegister=(event)=>{
@@ -14,17 +17,31 @@ const handleRegister=(event)=>{
   const photo=event.target.photo.value;
   console.log(email,password,name,photo);
 
+  setSuccess('')
 
-  // createUser(email,password){
 
-  // }
+  createUser(email,password)
+  .then(result=>{
+    const loggedUser=result.user;
+    console.log(loggedUser);
+  
+    setSuccess('success to registered');
+    event.target.reset()
+
+  })
+  .catch(error=>{
+    console.log(error.message);
+    setError(error.message)
+  })
+
+  
 
 }
 
 
     return (
         <Container>
-        <h1>login</h1>
+        <h1>Please Register</h1>
         <Form onSubmit={handleRegister}>
     <Form.Group className="mb-3" controlId="formBasicEmail">
     <Form.Label>Nme</Form.Label>
@@ -60,6 +77,7 @@ const handleRegister=(event)=>{
   <Button variant="primary" type="submit">
   Register
   </Button>
+  
 
   <Form.Text className="text-muted">
     Already have an account
@@ -68,6 +86,11 @@ const handleRegister=(event)=>{
 
 
 </Form>
+
+
+   <p className='text-danger'> {error}</p>
+   <p className='text-success font-weight-bold' style={{fontSize: '40px'}} > {success}</p>
+    
     </Container>
     );
 };
