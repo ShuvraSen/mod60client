@@ -43,13 +43,13 @@ const router = createBrowserRouter([
         // {
         //     path:'/',
         //     element:<Category></Category>,
-        //     loader:()=>fetch('http://localhost:5000/news')
+        //     loader:()=>fetch('https://the-server-dragon-mod63-shuvrasen.vercel.app/news')
         // },
        
         {
           path:':id',
           element:<Category></Category>,
-          loader:({params})=> fetch(`http://localhost:5000/categories/${params.id}`)
+          loader:({params})=> fetch(`https://the-server-dragon-mod63-shuvrasen.vercel.app/categories/${params.id}`)
       }
       ]
     },
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
             path:':id',
             // path:'/news/:id',
             element:<PrivateRoute><News></News></PrivateRoute>,
-            loader:({params})=>fetch(`http://localhost:5000/news/${params.id}`)
+            loader:({params})=>fetch(`https://the-server-dragon-mod63-shuvrasen.vercel.app/news/${params.id}`)
         },
        
       ]
